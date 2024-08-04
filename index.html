@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI - Online Banking</title>
+    <link rel="shortcut icon" href="/image/SBI.png" type="image/x-icon">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body id="body">
+    <div class="overlay" id="overlay"></div>
+<div class="head" style="display: flex;justify-content: center;align-items: center;gap: 10px;"><img src="/image/SBI.png" alt="sbi" style="width: 50px;height: 50px;"><h1>SBI - Online Banking</h1></div>
+    <div class="container" id="container">
+        <div class="section" id="section">
+            <div class="enq">
+                <h2 class="hh1">Deposit Or Withdraw</h2>
+                <input type="number" name="amount" id="amount" placeholder="₹ Enter your amount">
+                <div class="btns">
+                    <button type="button" id="deposit" onclick="depButton()">Deposit</button>
+                    <button type="button" id="withdraw" onclick="witButton()">Withdraw</button>
+                </div>
+            </div>
+            <hr color="#E2E2E0">
+            <div class="balance">
+                <h2 class="hh2">Check Your Balance</h2>
+                <button type="button" id="blncbtn" onclick="balanceButton()">Click Here to Check Balance</button>
+            </div>
+        </div>
+        <div class="alrt" id="alrt">
+            <img src="https://i.ibb.co/LQF5gt5/check.gif" alt="sergtsx" width="50%" id="alrtimg">
+            <h3 id="alrt-msg">Successfully deposited</h3>
+            <h1 id="alrt-amount"></h1>
+            <h1 id="alrt-bal"></h1>
+            <h5 style="margin-bottom: 20px;" id="alrt-from">To your Bank account</h5>
+            <button type="button" onclick="closeAlert()">OK</button>
+        </div>
+        <img src="image/8953257.png" alt="bankimage" id="mainimg">
+    </div>
+
+    <script>
+    let x = 0;
+
+    function depButton() {
+    let amount = document.getElementById("amount").value;
+    let value = parseFloat(amount);
+    if (value > 0) {
+        x += value;
+        document.getElementById("alrtimg").src = 'https://i.ibb.co/LQF5gt5/check.gif';
+        document.getElementById("alrt-msg").innerHTML = "Successfully deposited";
+        document.getElementById("alrt-amount").style.display = "block";
+        document.getElementById("alrt-bal").style.display = "none";
+        document.getElementById("alrt-amount").innerHTML = `₹${value}/-`;
+        document.getElementById("alrt-from").innerHTML = "To your Bank account";
+        document.getElementById("alrt").classList.add("show");
+        document.getElementById("overlay").classList.add("show");
+        document.getElementById("blncbtn").innerHTML = `Click Here to Check Balance`;
+    document.getElementById("section").style.filter = "blur(3px)";
+    document.getElementById("mainimg").style.filter = "blur(3px)";
+    } else {
+        document.getElementById("alrtimg").src = 'https://i.ibb.co/hmC96q4/warn.png';
+        document.getElementById("alrt-msg").innerHTML = "Please enter a valid amount!!";
+        document.getElementById("alrt-bal").style.display = "none";
+        document.getElementById("alrt-amount").style.display = "none";
+        document.getElementById("alrt-from").innerHTML = "Enter an amount not less than 1";
+        document.getElementById("alrt").classList.add("show");
+        document.getElementById("overlay").classList.add("show");
+    document.getElementById("section").style.filter = "blur(3px)";
+    document.getElementById("mainimg").style.filter = "blur(3px)";
+    }
+}
+
+function witButton() {
+    let amount = document.getElementById("amount").value;
+    let value = parseFloat(amount);
+    if (value > x) {
+        document.getElementById("alrtimg").src = 'https://i.ibb.co/hmC96q4/warn.png';
+        document.getElementById("alrt-msg").innerHTML = "Not enough money";
+        document.getElementById("alrt-from").innerHTML = "Not enough money in your account";
+        document.getElementById("alrt-amount").style.display = "none";
+        document.getElementById("alrt-bal").style.display = "none";
+        document.getElementById("alrt").classList.add("show");
+        document.getElementById("overlay").classList.add("show");
+        document.getElementById("blncbtn").innerHTML = `Click Here to Check Balance`;
+    document.getElementById("section").style.filter = "blur(3px)";
+    document.getElementById("mainimg").style.filter = "blur(3px)";
+    } else if (value > 0) {
+        x -= value;
+        document.getElementById("alrt-msg").innerHTML = "Successfully withdrawn";
+        document.getElementById("alrt-from").innerHTML = "From your bank account";
+        document.getElementById("alrt-amount").style.display = "block";
+        document.getElementById("alrt-bal").style.display = "none";
+        document.getElementById("alrt-amount").innerHTML = `₹${value}/-`;
+        document.getElementById("alrt").classList.add("show");
+        document.getElementById("overlay").classList.add("show");
+        document.getElementById("blncbtn").innerHTML = `Click Here to Check Balance`;
+    document.getElementById("section").style.filter = "blur(3px)";
+    document.getElementById("mainimg").style.filter = "blur(3px)";
+    } else {
+        document.getElementById("alrtimg").src = 'https://i.ibb.co/hmC96q4/warn.png';
+        document.getElementById("alrt-msg").innerHTML = "Please enter a valid amount!!";
+        document.getElementById("alrt-amount").style.display = "none";
+        document.getElementById("alrt-bal").style.display = "none";
+        document.getElementById("alrt-from").innerHTML = "Enter an amount not less than 1";
+        document.getElementById("alrt").classList.add("show");
+        document.getElementById("overlay").classList.add("show");
+    document.getElementById("section").style.filter = "blur(3px)";
+    document.getElementById("mainimg").style.filter = "blur(3px)";
+    }
+}
+
+function balanceButton() {
+    document.getElementById("alrtimg").src = 'ezgif-1-834593707e.webp';
+    document.getElementById("alrt-msg").innerHTML = "Your available balance:";
+    document.getElementById("alrt-amount").style.display = "none";
+    document.getElementById("alrt-bal").style.display = "block";
+    document.getElementById("alrt-bal").innerHTML = `₹${x}/-`;
+    document.getElementById("section").style.filter = "blur(3px)";
+    document.getElementById("mainimg").style.filter = "blur(3px)";
+    document.getElementById("alrt-from").innerHTML = "Thank You";
+    document.getElementById("alrt").classList.add("show");
+    document.getElementById("overlay").classList.add("show");
+}
+
+function closeAlert() {
+    document.getElementById("alrt").classList.remove("show");
+    document.getElementById("overlay").classList.remove("show");
+    document.getElementById("amount").value = '';
+    document.getElementById("section").style.filter = "blur(0px)";
+    document.getElementById("mainimg").style.filter = "blur(0px)";
+}
+
+document.getElementById("overlay").addEventListener("click", closeAlert);
+
+    </script>
+</body>
+</html>
